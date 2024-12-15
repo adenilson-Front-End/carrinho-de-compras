@@ -7,23 +7,28 @@ export default function ItensCarr({ data, deleteItem }) {
 
 
 
-    const [ aumentar, SetAumentar ] = useState(data.amount);
-    const [ descremento, setDescremento ] = useState(data.amount);
-    const [ quantidade, setQuantidade ] = useState(aumentar);
+
+    const [ quantidade, setQuantidade ] = useState(data.amount);
 
     function handleIncrement() {
-        SetAumentar(quantidade => quantidade += 1);
-        setQuantidade(aumentar)
+        setQuantidade(prevQuantidade => prevQuantidade += 1);
+
     }
 
     function handleDescrement() {
-        setDescremento(quantidade => quantidade - 1);
+        setQuantidade(prevQuantidade => {
+            const novaQuantidade = prevQuantidade - 1;
 
-        setQuantidade(descremento)
+            if (novaQuantidade <= 0) {
+                deleteItem()
+            }
 
-        if (descremento < 1) {
-            deleteItem()
-        }
+            return novaQuantidade;
+        });
+
+
+
+
     }
     return (
         <View style={styles.container}>
