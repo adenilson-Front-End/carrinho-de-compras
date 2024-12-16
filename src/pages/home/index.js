@@ -116,20 +116,13 @@ export default function Home() {
 
     ]);
 
-    const [ totalItens, setTotalItens ] = useState(0)
+
 
 
     function handleItemCart(item) {
 
         addItemCart(item);
-        somarItensCarrinho();
-    }
 
-    function somarItensCarrinho() {
-        let valores = cart.map((value) => value.total);
-
-        let totais = valores.reduce((a, b) => a + b, 0);
-        console.log(totais.toFixed(2));
     }
 
 

@@ -4,11 +4,11 @@ import { CardContext } from "../../Context";
 import ItensCarr from "../../components/ItensCarr";
 
 export default function Cart() {
-    const { cart, deleteItemCart, total, setTotal } = useContext(CardContext)
+    const { cart, removeItemCart, total, addItemCart } = useContext(CardContext)
 
 
     function handleDeleteItemCart(item) {
-        deleteItemCart(item)
+        removeItemCart(item);
     }
 
 
@@ -17,8 +17,11 @@ export default function Cart() {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={cart}
+                ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 30, marginTop: '70%', fontWeight: 'bold', color: '#dcdcdc' }}>Seu carrinho está vazio (:</Text>
+                </View>}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <ItensCarr data={item} deleteItem={() => handleDeleteItemCart(item.id)} />}
+                renderItem={({ item }) => <ItensCarr data={item} deleteItem={() => handleDeleteItemCart(item)} addAmount={() => addItemCart(item)} />}
 
             />
 

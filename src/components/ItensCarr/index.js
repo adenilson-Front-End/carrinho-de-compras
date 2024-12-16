@@ -1,51 +1,34 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CardContext } from '../../Context';
 
-export default function ItensCarr({ data, deleteItem }) {
+export default function ItensCarr({ data, deleteItem, addAmount }) {
 
-    const { cart } = useContext(CardContext);
-    const [ quantidade, setQuantidade ] = useState(data.amount);
-    const [ total, setTotal ] = useState(data.total);
 
-    function handleIncrement() {
-        setQuantidade(prevQuantidade => prevQuantidade += 1);
-        setTotal(prevTotal => prevTotal += data.price);
+    const [ amount, setAmount ] = useState(data.amount);
 
-        console.log(cart);
+    function handleInCrease() {
+        setAmount(item => item + 1);
+        addAmount();
     }
 
-    function handleDescrement() {
-        setQuantidade(prevQuantidade => {
-            const novaQuantidade = prevQuantidade - 1;
-            setTotal(prevTotal => prevTotal -= data.price);
-
-
-            if (novaQuantidade <= 0) {
-                deleteItem()
-            }
-
-            return novaQuantidade;
-        });
-
-
-
-
+    function handleDeCrease() {
+        deleteItem()
     }
     return (
         <View style={styles.container}>
             <View style={styles.areaItem}>
                 <View style={styles.areaText}>
                     <Text style={styles.title}>{data.name}</Text>
-                    <Text style={{ marginLeft: 8, fontSize: 16 }}>R$ {total.toFixed(2)}</Text>
+                    <Text style={{ marginLeft: 8, fontSize: 16 }}>R$ {data.price.toFixed(2)}</Text>
                 </View>
                 <View style={styles.areaButton}>
-                    <TouchableOpacity style={styles.button} onPress={handleDescrement}>
+                    <TouchableOpacity style={styles.button} onPress={handleDeCrease}>
                         <Feather name="minus" size={24} color={'#fff'} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 16 }}>{quantidade}</Text>
-                    <TouchableOpacity onPress={handleIncrement} style={[ styles.button, { borderTopRightRadius: 30 * 100, borderBottomRightRadius: 30 * 100, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } ]}>
+                    <Text style={{ fontSize: 16 }}>{amount}</Text>
+                    <TouchableOpacity onPress={handleInCrease} style={[ styles.button, { borderTopRightRadius: 30 * 100, borderBottomRightRadius: 30 * 100, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } ]}>
                         <Feather name="plus" size={24} color={'#fff'} />
                     </TouchableOpacity>
                 </View>

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CardContext = createContext();
 
@@ -18,6 +18,7 @@ export default function CardProvaider({ children }) {
             cartList[ indexItem ].total = cartList[ indexItem ].amount * newItem.price;
 
             setCart(cartList);
+            setTotal(cartList);
             return;
 
         }
@@ -30,16 +31,32 @@ export default function CardProvaider({ children }) {
         }
 
         setCart(products => [ ...products, data ]);
-        console.log([ ...cart, data ])
+        setTotal([ ...cart, data ]);
+
     }
 
-    function deleteItemCart(id) {
-        const deleteItem = cart.filter(item => item.id !== id);
-        setCart(deleteItem);
+    function removeItemCart(products) {
+        const indexItem = cart.findIndex(item => item.id === products.id);
+
+        if (cart[ indexItem ].amount > 1) {
+            let cartList = cart;
+
+            cartList[ indexItem ].amount = cartList[ indexItem ].amount - 1;
+            cartList[ indexItem ].total = cartList[ indexItem ].total - cartList[ indexItem ].price;
+            setCart(cartList);
+            return;
+        }
+
+        const removeItem = cart.filter(item => item.id !== products.id);
+        setCart(removeItem);
     }
+
+
     return (
-        <CardContext.Provider value={{ cart, addItemCart, deleteItemCart, total, setTotal }}>
+        <CardContext.Provider value={{ cart, addItemCart, removeItemCart, total, setTotal, }}>
             {children}
         </CardContext.Provider>
     )
 }
+
+
