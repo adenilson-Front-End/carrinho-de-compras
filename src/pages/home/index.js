@@ -15,28 +15,124 @@ export default function Home() {
     const [ products, setProducts ] = useState([
         {
             id: 1,
-            name: 'Sorvete de morango',
+            name: 'Sorvete de Morango',
             price: 7.99,
-
         },
         {
             id: 2,
             name: 'Fanta Laranja',
             price: 5.40,
-
         },
         {
             id: 3,
             name: 'Sorvete de Chocolate',
             price: 7.99,
-
         },
+        {
+            id: 4,
+            name: 'Coca-Cola',
+            price: 6.50,
+        },
+        {
+            id: 5,
+            name: 'Batata Frita Média',
+            price: 9.90,
+        },
+        {
+            id: 6,
+            name: 'Hambúrguer Clássico',
+            price: 15.99,
+        },
+        {
+            id: 7,
+            name: 'Água Mineral',
+            price: 2.50,
+        },
+        {
+            id: 8,
+            name: 'Milkshake de Baunilha',
+            price: 10.00,
+        },
+        {
+            id: 9,
+            name: 'Pizza Pequena de Mussarela',
+            price: 20.00,
+        },
+        {
+            id: 10,
+            name: 'Torta de Limão',
+            price: 8.50,
+        },
+        {
+            id: 11,
+            name: 'Pastel de Carne',
+            price: 6.00,
+        },
+        {
+            id: 12,
+            name: 'Café Expresso',
+            price: 4.50,
+        },
+        {
+            id: 13,
+            name: 'Suco de Laranja Natural',
+            price: 7.00,
+        },
+        {
+            id: 14,
+            name: 'Pipoca Doce',
+            price: 5.00,
+        },
+        {
+            id: 15,
+            name: 'Esfirra de Frango',
+            price: 4.90,
+        },
+        {
+            id: 16,
+            name: 'Donuts de Chocolate',
+            price: 8.00,
+        },
+        {
+            id: 17,
+            name: 'Bolo de Cenoura com Cobertura',
+            price: 12.00,
+        },
+        {
+            id: 18,
+            name: 'Lasanha Bolonhesa',
+            price: 25.00,
+        },
+        {
+            id: 19,
+            name: 'Salada Caesar',
+            price: 18.50,
+        },
+        {
+            id: 20,
+            name: 'Hot Dog Completo',
+            price: 10.99,
+        },
+
     ]);
+
+    const [ totalItens, setTotalItens ] = useState(0)
 
 
     function handleItemCart(item) {
-        addItemCart(item)
+
+        addItemCart(item);
+        somarItensCarrinho();
     }
+
+    function somarItensCarrinho() {
+        let valores = cart.map((value) => value.total);
+
+        let totais = valores.reduce((a, b) => a + b, 0);
+        console.log(totais.toFixed(2));
+    }
+
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.cardContent}>

@@ -4,10 +4,9 @@ export const CardContext = createContext();
 
 export default function CardProvaider({ children }) {
 
-    const [ cart, setCart ] = useState([
+    const [ cart, setCart ] = useState([]);
+    const [ total, setTotal ] = useState(0);
 
-
-    ]);
 
     function addItemCart(newItem) {
         const indexItem = cart.findIndex(item => item.id === newItem.id);
@@ -39,7 +38,7 @@ export default function CardProvaider({ children }) {
         setCart(deleteItem);
     }
     return (
-        <CardContext.Provider value={{ cart, addItemCart, deleteItemCart }}>
+        <CardContext.Provider value={{ cart, addItemCart, deleteItemCart, total, setTotal }}>
             {children}
         </CardContext.Provider>
     )

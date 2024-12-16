@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 export default function ListProducts({ data, addToCart }) {
+
+    console.log(data.total)
     return (
         <View style={styles.container}>
             <View style={styles.areaItem}>
