@@ -6,22 +6,30 @@ import { CardContext } from '../../Context';
 export default function ItensCarr({ data, deleteItem, addAmount }) {
 
 
-    const [ amount, setAmount ] = useState(data.amount);
+    const [ amount, setAmount ] = useState(data?.amount);
 
     function handleInCrease() {
-        setAmount(item => item + 1);
         addAmount();
+        setAmount(item => item + 1);
+
+
+
     }
 
     function handleDeCrease() {
-        deleteItem()
+        deleteItem();
+        if (amount === 0) {
+            setAmount(0);
+            return;
+        }
+        setAmount(item => item - 1)
     }
     return (
         <View style={styles.container}>
             <View style={styles.areaItem}>
                 <View style={styles.areaText}>
                     <Text style={styles.title}>{data.name}</Text>
-                    <Text style={{ marginLeft: 8, fontSize: 16 }}>R$ {data.price.toFixed(2)}</Text>
+                    <Text style={{ marginLeft: 8, fontSize: 16 }}>R$ {data.price}</Text>
                 </View>
                 <View style={styles.areaButton}>
                     <TouchableOpacity style={styles.button} onPress={handleDeCrease}>
