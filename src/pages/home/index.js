@@ -119,10 +119,10 @@ export default function Home() {
 
 
 
-    function handleItemCart(item) {
 
-        addItemCart(item);
 
+    function handleAddItemCart(item) {
+        addItemCart(item)
     }
 
 
@@ -130,7 +130,7 @@ export default function Home() {
         <SafeAreaView style={styles.container}>
             <View style={styles.cardContent}>
                 <Text style={styles.title}>Lista de produtos</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Cart')} >
+                <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
                     <View style={styles.dot}>
                         <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>{cart?.length}</Text>
                     </View>
@@ -142,7 +142,7 @@ export default function Home() {
                 showsVerticalScrollIndicator={false}
                 keyExtractor={item => item.id}
                 data={products}
-                renderItem={({ item }) => <ListProducts data={item} addToCart={() => handleItemCart(item)} />}
+                renderItem={({ item }) => <ListProducts data={item} addToCart={() => handleAddItemCart(item)} />}
             />
         </SafeAreaView >
     )

@@ -1,62 +1,58 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
 export const CardContext = createContext();
 
 export default function CardProvaider({ children }) {
-
     const [ cart, setCart ] = useState([]);
     const [ total, setTotal ] = useState(0);
 
-
     function addItemCart(newItem) {
-        const indexItem = cart.findIndex(item => item.id === newItem.id);
-        if (indexItem !== -1) {
-            // quer dizer que o item já existe no carrinho entao e so adicionar a quantidade
-            let cartList = cart;
+        const indexItem = cart.findIndex((item) => item.id === newItem.id);
 
-            cartList[ indexItem ].amount = cartList[ indexItem ].amount + 1;
-            cartList[ indexItem ].total = cartList[ indexItem ].amount * newItem.price;
+        if (indexItem === 0) {
+            // se o item já estiver no carrinho, entao so adiciona na quantidade.
+            const listItem = cart;
+            listItem[ indexItem ].amount = listItem[ indexItem ].amount + 1;
+            listItem[ indexItem ].total = listItem[ indexItem ].amount * newItem.price;
 
-            setCart(cartList);
-            setTotal(cartList);
+            setCart(listItem);
             return;
-
         }
 
-        const data =
-        {
+        // se o item nao estiver no carrinho, entao adiciona o item no carrinho
+        const data = {
             ...newItem,
             amount: 1,
             total: newItem.price,
-        }
+        };
 
-        setCart(products => [ ...products, data ]);
-        setTotal([ ...cart, data ]);
-
+        setCart((products) => [ ...products, data ]);
+        setTotal(...cart, data);
     }
 
+    // função para remover um item do carrinho
     function removeItemCart(products) {
-        const indexItem = cart.findIndex(item => item.id === products.id);
+        // irei verificar se existe o item no carrinho, caso exista irei remover
+        const indexItem = cart.findIndex((item) => item.id === products.id);
 
         if (cart[ indexItem ].amount > 1) {
-            let cartList = cart;
+            let itemCart = cart;
+            itemCart[ indexItem ].amount = itemCart[ indexItem ].amount - 1;
+            itemCart[ indexItem ].total = itemCart[ indexItem ].total - products.price;
 
-            cartList[ indexItem ].amount = cartList[ indexItem ].amount - 1;
-            cartList[ indexItem ].total = cartList[ indexItem ].total - cartList[ indexItem ].price;
-            setCart(cartList);
+            setCart(itemCart);
             return;
+            //
         }
 
-        const removeItem = cart.filter(item => item.id !== products.id);
-        setCart(removeItem);
+        const filterItem = cart.filter((item) => item.id !== products.id);
+
+        setCart(filterItem);
     }
 
-
     return (
-        <CardContext.Provider value={{ cart, addItemCart, removeItemCart, total, setTotal, }}>
+        <CardContext.Provider value={{ cart, total, addItemCart, removeItemCart }}>
             {children}
         </CardContext.Provider>
-    )
+    );
 }
-
-

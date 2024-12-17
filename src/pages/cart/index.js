@@ -4,7 +4,7 @@ import { CardContext } from "../../Context";
 import ItensCarr from "../../components/ItensCarr";
 
 export default function Cart() {
-    const { cart, removeItemCart, total, addItemCart } = useContext(CardContext)
+    const { cart, removeItemCart, addItemCart } = useContext(CardContext)
 
 
     function handleDeleteItemCart(item) {
@@ -18,7 +18,7 @@ export default function Cart() {
                 showsVerticalScrollIndicator={false}
                 data={cart}
                 ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 30, marginTop: '70%', fontWeight: 'bold', color: '#dcdcdc' }}>Seu carrinho está vazio (:</Text>
+                    <Text style={{ fontSize: 30, marginTop: '70%', fontWeight: 'bold', color: '#dcdcdc' }}>Seu carrinho está vazio (: </Text>
                 </View>}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => <ItensCarr data={item} deleteItem={() => handleDeleteItemCart(item)} addAmount={() => addItemCart(item)} />}
@@ -26,7 +26,7 @@ export default function Cart() {
             />
 
             <View style={styles.areaTotal}>
-                <Text>Total: R$: {total}</Text>
+                <Text>R$:</Text>
             </View>
         </View>
     )

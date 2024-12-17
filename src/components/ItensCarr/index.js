@@ -3,27 +3,30 @@ import { Feather } from '@expo/vector-icons';
 import { useContext, useEffect, useState } from 'react';
 import { CardContext } from '../../Context';
 
-export default function ItensCarr({ data, deleteItem, addAmount }) {
+export default function ItensCarr({ data, deleteItem, addAmount, removeItemCart }) {
 
 
     const [ amount, setAmount ] = useState(data?.amount);
 
-    function handleInCrease() {
+    function handleIncrease() {
+        // vou chamar a função addAmount para atualizar o carrinho;
         addAmount();
         setAmount(item => item + 1);
-
-
-
     }
 
-    function handleDeCrease() {
-        deleteItem();
+    function handleDecrease() {
+        deleteItem()
+
+
         if (amount === 0) {
+
             setAmount(0);
             return;
         }
-        setAmount(item => item - 1)
+
+        setAmount(item => item - 1);
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.areaItem}>
@@ -32,11 +35,11 @@ export default function ItensCarr({ data, deleteItem, addAmount }) {
                     <Text style={{ marginLeft: 8, fontSize: 16 }}>R$ {data.price}</Text>
                 </View>
                 <View style={styles.areaButton}>
-                    <TouchableOpacity style={styles.button} onPress={handleDeCrease}>
+                    <TouchableOpacity style={styles.button} onPress={handleDecrease}>
                         <Feather name="minus" size={24} color={'#fff'} />
                     </TouchableOpacity>
                     <Text style={{ fontSize: 16 }}>{amount}</Text>
-                    <TouchableOpacity onPress={handleInCrease} style={[ styles.button, { borderTopRightRadius: 30 * 100, borderBottomRightRadius: 30 * 100, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } ]}>
+                    <TouchableOpacity onPress={handleIncrease} style={[ styles.button, { borderTopRightRadius: 30 * 100, borderBottomRightRadius: 30 * 100, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 } ]}>
                         <Feather name="plus" size={24} color={'#fff'} />
                     </TouchableOpacity>
                 </View>
